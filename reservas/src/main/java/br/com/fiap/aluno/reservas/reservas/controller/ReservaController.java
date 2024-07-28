@@ -38,20 +38,33 @@ public class ReservaController {
 
     @PostMapping
     public ResponseEntity<ReservaDTO> save(@RequestBody ReservaDTO reservaDTO){
-        ReservaDTO savedMesa = reservaService.save(reservaDTO);
-        return new ResponseEntity<>(savedMesa, HttpStatus.CREATED);
+        ReservaDTO savedReserva = reservaService.save(reservaDTO);
+        return new ResponseEntity<>(savedReserva, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ReservaDTO> update(@PathVariable Long id, @RequestBody ReservaDTO reservaDTO){
-        ReservaDTO updatedMesa = reservaService.update(id, reservaDTO);
-        return ResponseEntity.ok(updatedMesa);
+        ReservaDTO updatedReserva = reservaService.update(id, reservaDTO);
+        return ResponseEntity.ok(updatedReserva);
     }
+
+    @PutMapping("/{id}/efetiva")
+    public ResponseEntity<ReservaDTO> efetiva(@PathVariable Long id, @RequestBody ReservaDTO reservaDTO){
+        ReservaDTO updatedReserva = reservaService.efetiva(id, reservaDTO);
+        return ResponseEntity.ok(updatedReserva);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         reservaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    //@PostMapping("/efetivacao")
+    //public ResponseEntity<ReservaDTO> save(@RequestBody int quantidadeDeLugaresMesaLiberada){
+    //    ReservaDTO savedReserva = reservaService.save(reservaDTO);
+    //    return new ResponseEntity<>(savedReserva, HttpStatus.CREATED);
+    //}
 
 
 

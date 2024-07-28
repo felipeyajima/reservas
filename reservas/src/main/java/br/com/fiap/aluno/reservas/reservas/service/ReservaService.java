@@ -70,6 +70,26 @@ public class ReservaService {
         }
     }
 
+
+    public ReservaDTO efetiva(Long id, ReservaDTO reservaDTO){
+        try {
+            Reserva reserva = reservaRepository.getReferenceById(id);
+            reserva.setResponsavel(reservaDTO.responsavel());
+            reserva.setEmail(reservaDTO.email());
+            reserva.setTelefone(reservaDTO.telefone());
+            reserva.setInicioDaReserva(reservaDTO.inicioDaReserva());
+            reserva.setStatus("atendido");
+
+            reserva = reservaRepository.save(reserva);
+
+            return toDTO(reserva);
+
+        } catch(EntityNotFoundException e) {
+            throw new ControllerNotFoundException("reserva nao encontrada");
+        }
+
+    }
+
     public void delete(Long id){
         reservaRepository.deleteById(id);
     }
